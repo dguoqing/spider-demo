@@ -36,17 +36,10 @@ class Spider {
             })
         })
     }
-    static splider(url) {
-        return new Promise((resolve, reject) => {
-            request.get(url).end((err, res) => {
-                if (err) return console.error('请求数据失败')
-                resolve(res.text)
-            })
-        })
-    }
     //请求墨迹天气
     getMojiData() {
-        return new Promise((resolve, reject) => {          
+            
+        return new Promise((resolve, reject) => {     
             request.get('https://tianqi.moji.com/weather/china/shandong/the-marshes-of-mount-liang-scenic-spots').end((err, res) => {
                 if (err) return console.error('请求数据失败')
 
@@ -132,7 +125,7 @@ class Spider {
     // 6. 定时每天23时36分发送邮件给女（男）朋友
     createSchedule() {
         console.log('定时任务开始...')
-        this.j = schedule.scheduleJob('7 7 7 * * *', function () {
+        this.j = schedule.scheduleJob('7 0 9 * * *', () => {
             this.sendMail();
             // console.log('The answer to life, the universe, and everything1');
             console.log("定时任务的邮件发送成功");
@@ -142,3 +135,4 @@ class Spider {
 
 const spider = new Spider()
 spider.createSchedule()
+// spider.sendMail()
